@@ -1,4 +1,3 @@
-BlurbDB
-=======
+##Syncing Blurbs via SSIS
 
-BlurbDB Localization App
+* http://msdn.microsoft.com/en-us/library/ms136090.aspx

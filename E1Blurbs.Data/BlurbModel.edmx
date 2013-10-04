@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlurbDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="BlurbDBModelStoreContainer">
+          <EntitySet Name="Blurb" EntityType="BlurbDBModel.Store.Blurb" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="BlurbDBModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Culture" EntityType="BlurbDBModel.Store.Culture" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="BlurbDBModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductCulture_lnk" EntityType="BlurbDBModel.Store.ProductCulture_lnk" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Translation" EntityType="BlurbDBModel.Store.Translation" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Category_Category" Association="BlurbDBModel.Store.FK_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Product" Association="BlurbDBModel.Store.FK_Category_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCulture_lnk_Culture" Association="BlurbDBModel.Store.FK_ProductCulture_lnk_Culture">
+            <End Role="Culture" EntitySet="Culture" />
+            <End Role="ProductCulture_lnk" EntitySet="ProductCulture_lnk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCulture_lnk_Product" Association="BlurbDBModel.Store.FK_ProductCulture_lnk_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductCulture_lnk" EntitySet="ProductCulture_lnk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TextResource_Category" Association="BlurbDBModel.Store.FK_TextResource_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Blurb" EntitySet="Blurb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TextResourceLocalization_Culture" Association="BlurbDBModel.Store.FK_TextResourceLocalization_Culture">
+            <End Role="Culture" EntitySet="Culture" />
+            <End Role="Translation" EntitySet="Translation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TextResourceLocalization_TextResource" Association="BlurbDBModel.Store.FK_TextResourceLocalization_TextResource">
+            <End Role="Blurb" EntitySet="Blurb" />
+            <End Role="Translation" EntitySet="Translation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Blurb">
+          <Key>
+            <PropertyRef Name="BlurbId" />
+          </Key>
+          <Property Name="BlurbId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="DefaultText" Type="varchar(max)" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ParentCategoryId" Type="int" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="SaveDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Culture">
+          <Key>
+            <PropertyRef Name="CultureId" />
+          </Key>
+          <Property Name="CultureId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CultureCode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="SaveDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCulture_lnk">
+          <Key>
+            <PropertyRef Name="ProductCultureId" />
+          </Key>
+          <Property Name="ProductCultureId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="CultureId" Type="int" Nullable="false" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+          <Property Name="SaveDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Translation">
+          <Key>
+            <PropertyRef Name="TranslationId" />
+          </Key>
+          <Property Name="TranslationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BlurbId" Type="int" Nullable="false" />
+          <Property Name="CultureId" Type="int" Nullable="false" />
+          <Property Name="LanguageCode" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="InsertDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Category_Category">
+          <End Role="Category" Type="BlurbDBModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="BlurbDBModel.Store.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Product">
+          <End Role="Product" Type="BlurbDBModel.Store.Product" Multiplicity="1" />
+          <End Role="Category" Type="BlurbDBModel.Store.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCulture_lnk_Culture">
+          <End Role="Culture" Type="BlurbDBModel.Store.Culture" Multiplicity="1" />
+          <End Role="ProductCulture_lnk" Type="BlurbDBModel.Store.ProductCulture_lnk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Culture">
+              <PropertyRef Name="CultureId" />
+            </Principal>
+            <Dependent Role="ProductCulture_lnk">
+              <PropertyRef Name="CultureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCulture_lnk_Product">
+          <End Role="Product" Type="BlurbDBModel.Store.Product" Multiplicity="1" />
+          <End Role="ProductCulture_lnk" Type="BlurbDBModel.Store.ProductCulture_lnk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductCulture_lnk">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TextResource_Category">
+          <End Role="Category" Type="BlurbDBModel.Store.Category" Multiplicity="1" />
+          <End Role="Blurb" Type="BlurbDBModel.Store.Blurb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Blurb">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TextResourceLocalization_Culture">
+          <End Role="Culture" Type="BlurbDBModel.Store.Culture" Multiplicity="1" />
+          <End Role="Translation" Type="BlurbDBModel.Store.Translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Culture">
+              <PropertyRef Name="CultureId" />
+            </Principal>
+            <Dependent Role="Translation">
+              <PropertyRef Name="CultureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TextResourceLocalization_TextResource">
+          <End Role="Blurb" Type="BlurbDBModel.Store.Blurb" Multiplicity="1" />
+          <End Role="Translation" Type="BlurbDBModel.Store.Translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blurb">
+              <PropertyRef Name="BlurbId" />
+            </Principal>
+            <Dependent Role="Translation">
+              <PropertyRef Name="BlurbId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlurbDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BlurbDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Blurbs" EntityType="BlurbDBModel.Blurb" />
+          <EntitySet Name="Categories" EntityType="BlurbDBModel.Category" />
+          <EntitySet Name="Cultures" EntityType="BlurbDBModel.Culture" />
+          <EntitySet Name="Products" EntityType="BlurbDBModel.Product" />
+          <EntitySet Name="ProductCulture_lnk" EntityType="BlurbDBModel.ProductCulture_lnk" />
+          <EntitySet Name="Translations" EntityType="BlurbDBModel.Translation" />
+          <AssociationSet Name="FK_TextResource_Category" Association="BlurbDBModel.FK_TextResource_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Blurb" EntitySet="Blurbs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TextResourceLocalization_TextResource" Association="BlurbDBModel.FK_TextResourceLocalization_TextResource">
+            <End Role="Blurb" EntitySet="Blurbs" />
+            <End Role="Translation" EntitySet="Translations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Category" Association="BlurbDBModel.FK_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_Product" Association="BlurbDBModel.FK_Category_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCulture_lnk_Culture" Association="BlurbDBModel.FK_ProductCulture_lnk_Culture">
+            <End Role="Culture" EntitySet="Cultures" />
+            <End Role="ProductCulture_lnk" EntitySet="ProductCulture_lnk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TextResourceLocalization_Culture" Association="BlurbDBModel.FK_TextResourceLocalization_Culture">
+            <End Role="Culture" EntitySet="Cultures" />
+            <End Role="Translation" EntitySet="Translations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCulture_lnk_Product" Association="BlurbDBModel.FK_ProductCulture_lnk_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductCulture_lnk" EntitySet="ProductCulture_lnk" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Blurb">
+          <Key>
+            <PropertyRef Name="BlurbId" />
+          </Key>
+          <Property Name="BlurbId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="DefaultText" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="BlurbDBModel.FK_TextResource_Category" FromRole="Blurb" ToRole="Category" />
+          <NavigationProperty Name="Translations" Relationship="BlurbDBModel.FK_TextResourceLocalization_TextResource" FromRole="Blurb" ToRole="Translation" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ParentCategoryId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SaveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Blurbs" Relationship="BlurbDBModel.FK_TextResource_Category" FromRole="Category" ToRole="Blurb" />
+          <NavigationProperty Name="Category1" Relationship="BlurbDBModel.FK_Category_Category" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="BlurbDBModel.FK_Category_Category" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Product" Relationship="BlurbDBModel.FK_Category_Product" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Culture">
+          <Key>
+            <PropertyRef Name="CultureId" />
+          </Key>
+          <Property Name="CultureId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CultureCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ProductCulture_lnk" Relationship="BlurbDBModel.FK_ProductCulture_lnk_Culture" FromRole="Culture" ToRole="ProductCulture_lnk" />
+          <NavigationProperty Name="Translations" Relationship="BlurbDBModel.FK_TextResourceLocalization_Culture" FromRole="Culture" ToRole="Translation" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SaveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Categories" Relationship="BlurbDBModel.FK_Category_Product" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="ProductCulture_lnk" Relationship="BlurbDBModel.FK_ProductCulture_lnk_Product" FromRole="Product" ToRole="ProductCulture_lnk" />
+        </EntityType>
+        <EntityType Name="ProductCulture_lnk">
+          <Key>
+            <PropertyRef Name="ProductCultureId" />
+          </Key>
+          <Property Name="ProductCultureId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="CultureId" Type="Int32" Nullable="false" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SaveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Culture" Relationship="BlurbDBModel.FK_ProductCulture_lnk_Culture" FromRole="ProductCulture_lnk" ToRole="Culture" />
+          <NavigationProperty Name="Product" Relationship="BlurbDBModel.FK_ProductCulture_lnk_Product" FromRole="ProductCulture_lnk" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Translation">
+          <Key>
+            <PropertyRef Name="TranslationId" />
+          </Key>
+          <Property Name="TranslationId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="BlurbId" Type="Int32" Nullable="false" />
+          <Property Name="CultureId" Type="Int32" Nullable="false" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Blurb" Relationship="BlurbDBModel.FK_TextResourceLocalization_TextResource" FromRole="Translation" ToRole="Blurb" />
+          <NavigationProperty Name="Culture" Relationship="BlurbDBModel.FK_TextResourceLocalization_Culture" FromRole="Translation" ToRole="Culture" />
+        </EntityType>
+        <Association Name="FK_TextResource_Category">
+          <End Role="Category" Type="BlurbDBModel.Category" Multiplicity="1" />
+          <End Role="Blurb" Type="BlurbDBModel.Blurb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Blurb">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TextResourceLocalization_TextResource">
+          <End Role="Blurb" Type="BlurbDBModel.Blurb" Multiplicity="1" />
+          <End Role="Translation" Type="BlurbDBModel.Translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blurb">
+              <PropertyRef Name="BlurbId" />
+            </Principal>
+            <Dependent Role="Translation">
+              <PropertyRef Name="BlurbId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Category">
+          <End Role="Category" Type="BlurbDBModel.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="BlurbDBModel.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_Product">
+          <End Role="Product" Type="BlurbDBModel.Product" Multiplicity="1" />
+          <End Role="Category" Type="BlurbDBModel.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCulture_lnk_Culture">
+          <End Role="Culture" Type="BlurbDBModel.Culture" Multiplicity="1" />
+          <End Role="ProductCulture_lnk" Type="BlurbDBModel.ProductCulture_lnk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Culture">
+              <PropertyRef Name="CultureId" />
+            </Principal>
+            <Dependent Role="ProductCulture_lnk">
+              <PropertyRef Name="CultureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TextResourceLocalization_Culture">
+          <End Role="Culture" Type="BlurbDBModel.Culture" Multiplicity="1" />
+          <End Role="Translation" Type="BlurbDBModel.Translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Culture">
+              <PropertyRef Name="CultureId" />
+            </Principal>
+            <Dependent Role="Translation">
+              <PropertyRef Name="CultureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCulture_lnk_Product">
+          <End Role="Product" Type="BlurbDBModel.Product" Multiplicity="1" />
+          <End Role="ProductCulture_lnk" Type="BlurbDBModel.ProductCulture_lnk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductCulture_lnk">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlurbDBModelStoreContainer" CdmEntityContainer="BlurbDBEntities">
+          <EntitySetMapping Name="Blurbs">
+            <EntityTypeMapping TypeName="BlurbDBModel.Blurb">
+              <MappingFragment StoreEntitySet="Blurb">
+                <ScalarProperty Name="BlurbId" ColumnName="BlurbId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DefaultText" ColumnName="DefaultText" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="BlurbDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="SaveDate" ColumnName="SaveDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cultures">
+            <EntityTypeMapping TypeName="BlurbDBModel.Culture">
+              <MappingFragment StoreEntitySet="Culture">
+                <ScalarProperty Name="CultureId" ColumnName="CultureId" />
+                <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BlurbDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="SaveDate" ColumnName="SaveDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCulture_lnk">
+            <EntityTypeMapping TypeName="BlurbDBModel.ProductCulture_lnk">
+              <MappingFragment StoreEntitySet="ProductCulture_lnk">
+                <ScalarProperty Name="ProductCultureId" ColumnName="ProductCultureId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CultureId" ColumnName="CultureId" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="SaveDate" ColumnName="SaveDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Translations">
+            <EntityTypeMapping TypeName="BlurbDBModel.Translation">
+              <MappingFragment StoreEntitySet="Translation">
+                <ScalarProperty Name="TranslationId" ColumnName="TranslationId" />
+                <ScalarProperty Name="BlurbId" ColumnName="BlurbId" />
+                <ScalarProperty Name="CultureId" ColumnName="CultureId" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

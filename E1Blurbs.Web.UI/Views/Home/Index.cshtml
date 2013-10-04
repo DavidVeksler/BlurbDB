@@ -1,0 +1,34 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "BlurbsDB";
+}
+<div class="row">
+    <div id="areas" data-bind="css: { 'col-sm-6 col-md-2 col-lg-2': !!Product(), 'col-sm-12 col-md-12 col-lg-12': !Product() }">
+        @Html.Partial("AreaListView")
+    </div>
+    <div class="col-sm-6 col-md-10 col-lg-10" id="blurblist">
+        @Html.Partial("BlurbListView")
+    </div>
+
+</div>
+@section ScriptResource{
+    @Scripts.Render("~/bundles/koUtilities")
+    @Scripts.Render("~/bundles/blurbs")
+}
+@section Scripts
+{
+
+ try {
+        var globalNavHeight = $('.navbar-inverse').outerHeight(true) + 10;
+        $('body').scrollspy({ target: '#instructions_nav' });
+
+        $window.on('load', function () {
+            $body.scrollspy('refresh');
+        });
+    } catch (e) {
+
+    }
+
+}
+
+

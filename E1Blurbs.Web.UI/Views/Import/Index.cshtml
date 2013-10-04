@@ -1,0 +1,101 @@
+﻿@model dynamic
+
+<h2>Import/Export Excel</h2>
+<div id="importmod">
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="~/Content/templates/BlurbTranslationTemplate.xlsx" class="btn btn-primary">Get Template For New Blurbs</a>
+            <div id="testArea" class="btn btn-default">
+                @Html.ActionLink("Export Test", "ExportBlubs")
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="clearfix col-sm-6 col-xs-12">
+            <h3>Get Template</h3>
+            <div class="clearfix col-xs-9 col-md-8 col-lg-8">
+                <div class="input-group">
+                    <span class="input-group-addon">Product</span>
+                    <select class="form-control" name="Select Product" data-bind="options: productList, optionsText: 'Name', value: SelectedExProduct, optionsCaption: 'Choose...'">
+                    </select>
+                </div>
+                <div data-bind="visible: SelectedExProduct()">
+                    <em>Please choose an area:</em>
+                    <ul data-bind="foreach: ExAreaList" class="nav nav-stacked sidenav subarea">
+                        <li>
+                            <span class="nav-header" data-bind="text: Name"></span>
+                            <ul data-bind="foreach: ChildAreaList" class="nav nav-pills nav-stacked">
+                                <li data-bind="css: { active: $root.SelectedExArea() && AreaId == $root.SelectedExArea().AreaId }">
+                                    <a href="#" data-bind="text: Name, click: $root.setSelectedExArea"></a>
+                                    <ul data-bind="foreach: ChildAreaList" class="nav nav-pills nav-stacked">
+                                        <li data-bind="css: { active: $root.SelectedExArea() && AreaId == $root.SelectedExArea().AreaId }">
+                                            <a href="#"><span data-bind="text: Name, click: $root.setSelectedExArea"></span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="input-group">
+                        <span class="input-group-addon">Area</span>
+                        <input class="form-control" readonly="readonly" data-bind="value: SelectedExArea() ? SelectedExArea().Name : ''" />
+                    </div>
+                </div>
+                <a class="btn btn-primary pull-right" data-bind="attr: { href: DownloadUrl, disabled: !SelectedExArea() }">Download Template</a>
+            </div>
+        </div>
+        <div class="clearfix col-sm-6 col-xs-12">
+            <h3>Upload Template With Blurbs or Translations</h3>
+            <div class="clearfix col-xs-9 col-md-8 col-lg-8">
+                <form action="Import/ImportBlubs" enctype="multipart/form-data" method="post" id="importfrm" class="clearfix">
+                    <div class="input-group">
+                        <span class="input-group-addon">Product</span>
+                        <select class="form-control" data-bind="options: productList, optionsText: 'Name', value: SelectedImProduct, optionsCaption: 'Choose...'">
+                        </select>
+
+                    </div>
+                    <div data-bind="visible: SelectedImProduct()">
+                        <em>Please choose an area:</em>
+                        <ul data-bind="foreach: ImAreaList" class="nav nav-stacked sidenav subarea">
+                            <li>
+                                <span class="nav-header" data-bind="text: Name"></span>
+                                <ul data-bind="foreach: ChildAreaList" class="nav nav-pills nav-stacked">
+                                    <li data-bind="css: { active: $root.SelectedImArea() && AreaId == $root.SelectedImArea().AreaId }">
+                                        <a href="#" data-bind="text: Name, click: $root.setSelectedImArea"></a>
+                                        <ul data-bind="foreach: ChildAreaList" class="nav nav-pills nav-stacked">
+                                            <li data-bind="css: { active: $root.SelectedExArea() && AreaId == $root.SelectedExArea().AreaId }">
+                                                <a href="#"><span data-bind="text: Name, click: $root.setSelectedImArea"></span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="input-group">
+                            <span class="input-group-addon">Area</span>
+                            <input class="form-control" readonly="readonly" data-bind="value: SelectedImArea() ? SelectedImArea().Name : ''" />
+                            <input type="hidden" id="ParentCategoryId" name="ParentCategoryId" data-bind="value: SelectedImArea() ? SelectedImArea().AreaId : ''">
+                        </div>
+                    </div>
+                    <input type="file" name="file" id="file" class="btn" data-bind="value: ImportFile">
+                    <div id="status" data-bind="visible: ProcessStatus() == 1">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <button id="importbtn" type="submit" class="btn btn-primary pull-right" data-bind="attr: { disabled: !ImportFile() || !SelectedImArea() }, visible: ProcessStatus() != 1">Upload Template</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="alert fade" id="importinfo" data-bind="css: { 'alert-danger': ProcessStatus() == 3, 'alert-success': ProcessStatus() == 2, 'in': ProcessStatus() == 2 || ProcessStatus() == 3 }">
+            <p data-bind="text: errorObservable"></p>
+        </div>
+    </div>
+</div>
+
+@section ScriptResource{
+    @Scripts.Render("~/bundles/koUtilities")
+    @Scripts.Render("~/bundles/blurbs")
+}

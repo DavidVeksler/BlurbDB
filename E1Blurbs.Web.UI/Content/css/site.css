@@ -1,0 +1,217 @@
+﻿body {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    background-color: #fff;
+}
+
+.sloading {
+    background-image: url('../img/loading_s.gif');
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+}
+
+/* #region side navigator*/
+.sidenav {
+    background-color: #F7F7F9;
+}
+
+    .sidenav > li > .area {
+        margin: 0 0 -1px;
+        padding: 4px 10px;
+        border: 1px solid #e5e5e5;
+    }
+
+    .sidenav .glyphicon, .page-header .glyphicon {
+        cursor: pointer;
+        opacity: .7;
+        filter: alpha(opacity=70);
+    }
+
+    .sidenav .nav-header {
+        text-transform: none;
+        margin-bottom: 0;
+        padding: 5px;
+    }
+
+    .sidenav li {
+        position: relative;
+    }
+
+.nav-pills a span {
+    display: block;
+    width: 90%;
+}
+
+/*.nav-pills .nav-pills {
+    display: none;
+}*/
+/*
+.nav-pills > .active > .nav-pills {
+    display: block;
+}*/
+
+.nav-pills .nav-pills li > a {
+    font-size: 12px;
+    padding: 5px;
+}
+
+    .nav-pills .nav-pills li > a span {
+        padding-left: 20px;
+    }
+
+li > .sloading, li li a .glyphicon-pencil {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+li li a .glyphicon-pencil {
+    top: 12px;
+}
+
+.nav-pills .nav-pills a > .glyphicon-pencil {
+    top: 5px;
+}
+
+li > a:hover > .glyphicon-pencil {
+    display: block;
+}
+
+.subarea {
+    max-height: 160px;
+    min-height: 100px;
+    overflow-y: auto;
+}
+/* #endregion*/
+.alert p {
+    text-align: left;
+}
+
+.input-group {
+    margin: 5px 0;
+}
+
+.input-group-addon {
+    min-width: 100px;
+}
+
+.page-header {
+    border-bottom-color: #0088CC;
+    margin-bottom: 2px;
+}
+
+.headercontent {
+    margin: 5px 0 0 18px;
+}
+
+dl {
+    margin: 5px 0;
+}
+
+.dl-horizontal dd {
+    margin-left: 75px;
+}
+
+.dl-horizontal dt {
+    width: 70px;
+}
+
+.row .btn {
+    margin: 5px 0;
+}
+
+#blurblist .row > article {
+    background-color: #f7f7f9;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 0 2px #ddd;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#blurblist .page-header {
+    margin: 0;
+    padding: 5px;
+    position: relative;
+}
+
+.editform {
+    display: inline-block;
+    width: 100%;
+}
+
+.editform input, .editform select {
+    width: 200px;
+}
+
+.editform textarea {
+    width: 100%;
+}
+
+.row .glyphicon-remove-circle {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#body {
+    padding-top: 50px;
+}
+
+    #body > .row {
+        padding-top: 10px;
+    }
+
+#searchbox {
+    position: relative;
+    margin: 12px 10px 0 0;
+}
+
+    #searchbox input {
+        border-radius: 12px;
+        height: 2em;
+        line-height: 2em;
+        padding-right: 20px;
+        width: 10em;
+    }
+
+    #searchbox .glyphicon {
+        cursor: pointer;
+        opacity: .3;
+        position: absolute;
+        right: 7px;
+        top: 6px;
+    }
+
+.modal .page-header {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.modal .dl-horizontal dt {
+    width: 85px;
+}
+
+.modal .dl-horizontal dd {
+    margin-left: 90px;
+}
+.lang {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+.lang .checkbox {
+    margin: 0;
+}
+
+article.thumbnail {
+    margin-top: 10px;
+}
+article.thumbnail h2[id] {
+    padding-top: 80px;
+    margin-top: -45px;
+}

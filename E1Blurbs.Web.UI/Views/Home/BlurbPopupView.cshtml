@@ -1,0 +1,55 @@
+﻿<div id="blurbpop" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="popupLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Add blurb to <span data-bind="text: Area() ? Area().Name : ''"></span></h3>
+            </div>
+            <div class="modal-body" data-bind="with: NewBlurb">
+                <div class="clearfix">
+                    <div class="editform">
+                        <textarea class="form-control" rows="2" data-bind="value: NewDescription, placeholder: 'Type here to add blurb description', valueUpdate: 'afterkeydown', blurOnEnter: true, event: { blur: $parent.addBlurb }"></textarea>
+                        <span data-bind="visible: ProcessStatus, css: { sloading: ProcessStatus() == 1, 'icon-warning-sign': ProcessStatus() == 3 }"></span>
+                        <p class="text-danger" data-bind="visible: errorMessage, text: errorMessage"></p>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default btn-xs" title="submit your changes"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-horizontal" data-bind="foreach: Translations">
+                    <dl data-bind="visible: !IsEditing(), click: switchEditMode" class="clearfix">
+                        <dt data-bind="text: CultureCode"></dt>
+                        <dd data-bind="text: Content"></dd>
+                    </dl>
+                    <div data-bind="visible: IsEditing()" class="editform">
+                        <label data-bind="text: CultureCode"></label>
+                        <textarea class="form-control" rows="2" data-bind="value: NewContent, placeholder: 'Type here to add translation', blurOnEnter: true, event: { blur: $parent.addTranslation }"></textarea>
+                        <p class="text-danger" data-bind="visible: errorMessage, text: errorMessage"></p>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default btn-xs" title="submit your changes"><i class="glyphicon glyphicon-ok"></i></button>
+                            <button class="btn btn-default btn-xs" title="remove this item" data-bind="click: $parent.deleteTranslation"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+
+                    </div>
+                </div>
+                <div data-bind="visible: IsAddTranslation(), with: NewTranslation" class="editform clearfix">
+                    <select class="form-control" data-bind="visible: !CultureCode(), options: $root.CultureList, optionsText: 'Name', value: NewCulture, optionsCaption: 'Choose...'"></select>
+                    <textarea class="form-control" rows="2" data-bind="value: NewContent, placeholder: 'Type here to add translation', blurOnEnter: true, event: { blur: $parent.addTranslation }"></textarea>
+                    <p class="text-danger" data-bind="visible: errorMessage, text: errorMessage"></p>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default btn-xs" title="submit your changes"><span class="glyphicon glyphicon-ok"></span></button>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary btn-xs pull-right" data-bind="click: clickAddTranslation, attr: { disabled: !BlurbId() }">Add translation</button>
+            </div>
+            <div class="modal-footer" data-bind="with: NewBlurb">
+                @*        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Done</button>*@
+                <button class="btn btn-primary" data-bind="click: scrollnewBlurb">Done</button>
+            </div>
+        </div>
+
+    </div>
+</div>

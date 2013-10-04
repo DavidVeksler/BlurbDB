@@ -1,0 +1,31 @@
+﻿@model Blurb
+@{
+    
+    ViewBag.Title = "Edit Blurb";
+}
+
+<h2></h2>
+
+@using (Html.BeginForm("Edit", "Blurb", FormMethod.Post))
+{
+    <div id="blurbItems">
+        <div id="defaultBlurb">
+            @Html.HiddenFor(b => b.TextResourceId)
+        </div>
+        <table>
+            <tr>
+                <td>en-US</td>
+                <td>@Html.TextBoxFor(b => b.DefaultText, new { style = "width: 300px" })</td>
+            </tr>
+            @foreach (var localBlurb in Model.Localizations)
+            {
+                <tr>
+                    <td>@localBlurb.LanguageCode</td>
+                    <td>@Html.TextBox(@localBlurb.LanguageCode, localBlurb.Text, new { style = "width: 300px" })</td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Back to blurb list", "Index")
+        <input type="submit" class="acceptbtn" value="Save" />
+    </div>
+}

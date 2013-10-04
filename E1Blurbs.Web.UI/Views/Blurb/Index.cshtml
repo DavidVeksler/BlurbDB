@@ -1,0 +1,31 @@
+﻿@model List<Blurb>
+
+@{
+    ViewBag.Title = "Manage Blurbs";
+}
+
+<h3>@Html.ActionLink("Logout", "Logout", "Account")</h3>
+<hr />
+<h2>@ViewBag.Title</h2>
+
+<h3>Current Environment: @ViewBag.Server - @ViewBag.Database</h3>
+
+<div>@Html.ActionLink("A a new blurb", "Add")</div>
+
+@foreach (var blurb in Model)
+{
+    <div>
+        <div id="@blurb.TextResourceId">
+            @blurb.DefaultText (@blurb.TextResourceId) - 
+                @Html.ActionLink("Edit", "Edit", new { id = @blurb.TextResourceId }) 
+                | @Html.ActionLink("Delete", "Delete", new { id = @blurb.TextResourceId }) 
+        </div>
+        
+        <ul>
+            @foreach (var localized in blurb.Localizations)
+            {
+                <li>@localized.LanguageCode - @localized.Text</li>
+            }
+        </ul>
+    </div>
+}

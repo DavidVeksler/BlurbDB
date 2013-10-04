@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00237a0435c64c88a5a3dbcde12d8ec6" Name="Diagram1">
+        <EntityTypeShape EntityType="BlurbDBModel.Blurb" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlurbDBModel.Category" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlurbDBModel.Culture" Width="1.5" PointX="3.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlurbDBModel.Product" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlurbDBModel.ProductCulture_lnk" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BlurbDBModel.Translation" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="BlurbDBModel.FK_TextResource_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_TextResourceLocalization_TextResource" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_Category_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_ProductCulture_lnk_Culture" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_TextResourceLocalization_Culture" ManuallyRouted="false" />
+        <AssociationConnector Association="BlurbDBModel.FK_ProductCulture_lnk_Product" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Sync Blurbs";
+}
+
+
+<h1>Sync Blurbs
+</h1>
+
+<script>
+
+    function post(actionUrl) {
+        var form = document.createElement('form');
+        form.setAttribute('target', '_blank');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', actionUrl);
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+</script>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" id="syncdev">
+        Sync Blurbs from JunoDB to Dev and Staging</button>
+    <button type="button" class="btn btn-default"  id="synclive">
+        Sync Blurbs from JunoDB to
+        Live</button>
+
+
+</div>
+<div id="syncdetail"></div>
+@section Scripts{
+    $('#syncdev').click(function(){
+    debugger;
+    var syncPost = $.post("@Url.Action("SyncBlurbsToDev")")
+    .done(function(result){
+    $('#syncdetail').html(result);
+    });
+
+    });
+    
+    $('#synclive').click(function(){
+    var syncPost = $.post("@Url.Action("SyncBlurbsToLive")");
+
+    });
+}

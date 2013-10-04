@@ -1,0 +1,88 @@
+﻿@Html.Partial("BlurbPopupView")
+<div class="clearfix">
+    <div class="row" data-bind="visible: AreaId()">
+        <div class="col-sm-12 col-md-10 col-lg-10">
+            <label>Missing any translations?</label>
+            <ul class="list-inline lang" data-bind="foreach: CultureList">
+                <li>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="languages" data-bind="value: Code, checked: $parent.LangFilters">
+                            <span data-bind="text: Name"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div class="btn-group">
+                <button class="btn btn-xs btn-primary" data-bind="click: filterByLang"><span class="glyphicon glyphicon-filter"></span>Filter</button>
+                <button class="btn btn-xs btn-default" data-bind="click: clearLangFilter"><span class="glyphicon glyphicon-refresh"></span>Reset</button>
+            </div>
+
+
+        </div>
+        <div class="col-sm-12 col-md-2 col-lg-2">
+            <a href="#blurbpop" class="btn btn-primary pull-right" data-bind="click: createBlurb"><span class="glyphicon glyphicon-plus"></span>Add Blurb</a>
+        </div>
+    </div>
+    @*        <div class="loadingBar" data-bind="visible: ProcessStatus() == 1"></div>*@
+    @*            areaID: <span data-bind="text: AreaId"></span>
+            productId: <span data-bind="text: productId"></span>
+            CultureList Length: <span data-bind="text: CultureList().length"></span>*@
+</div>
+<div data-bind="visible: blurbArray().length, foreach: blurbArray">
+    <div class="row clearfix blurb" data-bind="attr: { id: BlurbId, rel: Languages }">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+            <div class="page-header">
+                <div>
+                    <span class="glyphicon glyphicon-chevron-down" data-bind="click: getTranslations, attr: { 'data-target': '#trans' + $index() }"></span>
+                    <span class="label label-success" data-bind="text: BlurbId"></span>
+                    <ul data-bind="foreach: Languages" class="list-inline lang">
+                        <li>
+                            <span class="label label-info" data-bind="text: $data"></span>
+                        </li>
+                    </ul>
+                    <span data-bind="visible: ProcessStatus(), css: { sloading: ProcessStatus() == 1, 'icon-warning-sign': ProcessStatus() == 3 }"></span>
+                    <span class="text-danger" data-bind="visible: errorMessage, text: errorMessage"></span>
+                    <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.deleteBlurb"></span>
+                </div>
+                <div class="headercontent">
+                    <span class="content" data-bind="text: Description, visible: !IsEditing(), click: switchEditMode"></span>
+                    <div class="editform" data-bind="visible: IsEditing()">
+                        <textarea class="form-control" data-bind="value: NewDescription, blurOnEnter: true, event: { blur: $parent.updateBlurb }"></textarea>
+                        <div class="btn-group pull-right">
+                            @*                                <button class="btn btn-small" title="submit your changes" data-bind="click: $parent.updateBlurb"><i class="icon-ok"></i></button>*@
+                            @* <button class="btn btn-small" title="remove this item"><i class="icon-remove"></i></button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="attr: { id: 'trans' + $index() } " class="collapse clearfix">
+                <div class="dl-horizontal" data-bind="foreach: Translations">
+                    <dl data-bind="visible: !IsEditing(), click: switchEditMode" class="clearfix">
+                        <dt data-bind="text: CultureCode"></dt>
+                        <dd data-bind="text: Content"></dd>
+                    </dl>
+                    <div data-bind="visible: IsEditing()" class="editform">
+                        <label data-bind="text: CultureCode"></label>
+                        <textarea class="form-control" rows="2" cols="120" data-bind="value: NewContent, valueUpdate: 'afterkeydown', placeholder: 'Type here to add translation'"></textarea>
+                        <p class="text-danger" data-bind="visible: errorMessage, text: errorMessage"></p>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-xs btn-default" title="remove this item" data-bind="click: $parent.deleteTranslation"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button class="btn btn-xs btn-primary" title="submit your changes" data-bind="click: $parent.addTranslation, attr: { disabled: !NewContent() }"><i class="glyphicon glyphicon-ok"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+                <div data-bind="visible: IsAddTranslation(), with: NewTranslation" class="editform">
+                    <select class="form-control" data-bind="visible: !CultureCode(), options: $root.CultureList, optionsText: 'Name', value: NewCulture, optionsCaption: 'Choose...', event: { change: function (data) { changeCulture(data, $parent.Languages()); } }"></select>
+                    <textarea class="form-control" rows="2" cols="120" data-bind="value: NewContent, valueUpdate: 'afterkeydown', placeholder: 'Type here to add translation', blurOnEnter: true"></textarea>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default btn-xs" title="submit your changes" data-bind="click: $parent.addTranslation, attr: { disabled: !NewContent() }"><span class="glyphicon glyphicon-ok"></span></button>
+                    </div>
+                    <p class="alert alert-danger fade" data-bind="css: { in: errorMessage() }, visible: errorMessage(), text: errorMessage"></p>
+                </div>
+                <a href="#" class="btn btn-primary btn-xs pull-right" data-bind="click: clickAddTranslation">Add translation</a>
+            </div>
+        </article>
+    </div>
+</div>

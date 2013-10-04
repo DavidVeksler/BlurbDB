@@ -1,0 +1,14 @@
+﻿<div class=" nav navbar-nav navbar-right" id="efprods">
+    <div id="searchbox" class="pull-left" data-bind="visible: selectedProduct()">
+        <input class="form-control" type="text" data-bind="placeholder: 'Search', value: SearchTerm, valueUpdate: 'afterkeydown', blurOnEnter: true, event: { blur: search }">
+        <i class="glyphicon glyphicon-search" data-bind="click: search"></i>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <li id="fat-menu" class="dropdown">
+            <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"><span data-bind="text: selectedProduct() ? selectedProduct().Name : 'Choose a product'"></span><b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="productdropdown" data-bind="foreach: productList, visible: productList().length">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-bind="    text: Name, click: $parent.changeProduct"></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
