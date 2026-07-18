@@ -1,0 +1,29 @@
+# Managed by DavidVeksler/dependabot-fleet
+version: 2
+
+updates:
+  - package-ecosystem: "nuget"
+    directories:
+      - "/E1Blurbs.Data"
+      - "/E1Blurbs.DataAccess"
+      - "/E1Blurbs.Domain"
+      - "/E1Blurbs.Web.UI"
+      - "/E1Blurbs.Web.UI.Tests"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "01:00"
+      timezone: "America/Denver"
+    open-pull-requests-limit: 5
+    groups:
+      non-major-updates:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      security-updates:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
